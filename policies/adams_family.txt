@@ -1,8 +1,8 @@
-begin
-    +ve obligated danny {open, close} sql_files
+
+  begin          +ve obligated danny {open, close} sql_files
     -ve authorised alex open sql_files
-    +ve authorised eve eat apple
-    +ve obligated adam eat apple
-    +ve authorised Abel eat {apple, berries}
-    -ve obligated Cain grow wheat
-end
+        +ve         authorised eve eat apple
+    +ve obligated           adam eat apple
+    +ve         authorised Abel     eat {apple,              berries}
+    -ve
+    obligated Cain grow     wheat   end

@@ -1,22 +1,22 @@
-grammar Joey;
+﻿grammar Joey;
 
 start : sentence ;
 
 sentence : BEGIN single+ END ;
 
-single : polarity modality subjects verbs objects ;
+single : polarity modality subject verbs objects ;
 
 polarity : POSITIVE | NEGATIVE ;
 
 modality : AUTHORISATION | OBLIGATION ;
 
-subjects : words ;
+subject : WORD ;
 verbs    : words ;
 objects  : words ;
 
 words
-    : WORD                              // single word
-    | LBRACKET WORD (COMMA WORD)* RBRACKET // comma-separated list
+    : WORD
+    | LBRACKET WORD (COMMA WORD)* RBRACKET
     ;
 
 // Tokens

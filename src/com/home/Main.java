@@ -1,17 +1,34 @@
 package com.home;
 
+
+import com.home.gen.*;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+
+import static org.antlr.v4.runtime.CharStreams.fromFileName;
+
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+    private final static String DIR = "policies/";
+
+    public static void main(String[] args) throws Exception {
+        // Create an input stream
+        CharStream input = fromFileName(DIR + "adams_family.txt");
+        // Create the lexer and token stream
+        JoeyLexer lexer = new JoeyLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        JoeyParser parser = new JoeyParser(tokens);
+
+        JoeyParser.StartContext tree = parser.start();
+        String pretty = new PrettyPrint_JoeyVisitor().visit(tree);
+
+
+
+        System.out.println(pretty);
     }
 }
