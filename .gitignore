@@ -34,3 +34,5 @@ Thumbs.db
 ### ANTLR generated files (optional) ###
 *.tokens
 *.interp
+# ANTLR generated files
+/src/com/home/gen/

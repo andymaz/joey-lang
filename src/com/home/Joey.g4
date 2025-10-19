@@ -15,8 +15,8 @@ verbs    : words ;
 objects  : words ;
 
 words
-    : WORD
-    | LBRACKET WORD (COMMA WORD)* RBRACKET
+    : WORD                                  #single_word
+    | LBRACKET WORD (COMMA WORD)+ RBRACKET  #compound_word
     ;
 
 // Tokens
