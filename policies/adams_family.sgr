@@ -1,0 +1,28 @@
+policy adams_family:
+    begin
+        danny <== begin
+            +ve obligated open sql_files
+            +ve obligated close sql_files
+        end
+
+        alex <== begin
+            -ve authorised open sql_files
+        end
+
+        eve <== begin
+            +ve authorised eat apple
+        end
+
+        adam <== begin
+            +ve obligated eat apple
+        end
+
+        abel <== begin
+            +ve authorised eat apple
+            +ve authorised eat berries
+        end
+
+        cain <== begin
+            -ve obligated grow wheat
+        end
+    end

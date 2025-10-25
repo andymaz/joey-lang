@@ -1,8 +1,8 @@
 // Generated from /home/andrei/IdeaProjects/joey/src/com/home/Joey.g4 by ANTLR 4.13.2
-package com.home;
+package com.home.plain;
 
-import com.home.gen.JoeyBaseVisitor;
-import com.home.gen.JoeyParser;
+import com.home.plain.gen.JoeyBaseVisitor;
+import com.home.plain.gen.JoeyParser;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.List;
 import java.util.stream.Collectors;

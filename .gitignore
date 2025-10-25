@@ -35,4 +35,4 @@ Thumbs.db
 *.tokens
 *.interp
 # ANTLR generated files
-/src/com/home/gen/
+/src/com/home/plain/gen/

@@ -1,7 +1,7 @@
-package com.home;
+package com.home.plain;
 
-import com.home.gen.JoeyLexer;
-import com.home.gen.JoeyParser;
+import com.home.plain.gen.JoeyLexer;
+import com.home.plain.gen.JoeyParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         // Create an input stream
-        CharStream input = fromFileName(DIR + "adams_family.txt");
+        CharStream input = fromFileName(DIR + "adams_family.pln");
         // Create the lexer and token stream
         JoeyLexer lexer = new JoeyLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
