@@ -1,17 +1,33 @@
 package com.home.sweet;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+import com.home.sweet.aux.SugarAux;
+import com.home.sweet.gen.*;
+import com.home.sweet.node.Node;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+
+import static org.antlr.v4.runtime.CharStreams.fromFileName;
+
+public class Main {
+
+    private static final String DIR = "policies/";
+
+    public static void main(String[] args) throws Exception {
+        // --- Load input file ---
+        CharStream input = fromFileName(DIR + "adams_family.sgr");
+
+        // --- Create lexer and parser ---
+        SugarLexer lexer = new SugarLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        SugarParser parser = new SugarParser(tokens);
+
+        // --- Build the AST using the visitor ---
+        AST_SugarVisitor visitor = new AST_SugarVisitor();
+        Node ast = visitor.visit(parser.start());
+
+        // --- Pretty-print the AST ---
+        SugarAux aux = new SugarAux(ast);
+        System.out.println(aux.prettyPrint());
     }
 }
