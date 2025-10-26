@@ -1,6 +1,5 @@
 package com.home.sweet;
 
-import com.home.sweet.gen.SugarParser;
 import com.home.sweet.gen.*;
 import com.home.sweet.node.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -59,6 +58,7 @@ public class AST_SugarVisitor extends SugarBaseVisitor<Node> {
         return visitWords(ctx.words());
     }
 
+
     @Override
     public Node visitSingle_word(SugarParser.Single_wordContext ctx) {
         return new WordsNode(List.of(ctx.WORD().getText()));
@@ -80,4 +80,5 @@ public class AST_SugarVisitor extends SugarBaseVisitor<Node> {
         else
             throw new RuntimeException("Unknown words context: " + ctx.getText());
     }
+
 }

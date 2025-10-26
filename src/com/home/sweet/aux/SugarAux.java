@@ -11,70 +11,56 @@ public class SugarAux {
         this.node = node;
     }
 
-    /**
-     * Generates a human-readable pretty print of the AST.
-     */
     public String prettyPrint() {
-        if (node instanceof PolicyNode) {
-            PolicyNode policy = (PolicyNode) node;
-            return "POLICY " + policy.name + ":\n" +
+        if (node instanceof PolicyNode policy) {
+            return "policy " + policy.name + ":\n" +
                     indent(new SugarAux(policy.sentences).prettyPrint());
         }
 
-        else if (node instanceof SentencesNode) {
-            SentencesNode sents = (SentencesNode) node;
-            return sents.sentences.stream()
-                    .map(s -> new SugarAux(s).prettyPrint())
-                    .collect(Collectors.joining("\n"));
+        if (node instanceof SentencesNode sents) {
+            return "begin\n" +
+                    indent(sents.sentences.stream()
+                            .map(s -> new SugarAux(s).prettyPrint())
+                            .collect(Collectors.joining("\n"))) +
+                    "\nend";
         }
 
-        else if (node instanceof SentenceNode) {
-            SentenceNode sent = (SentenceNode) node;
+        if (node instanceof SentenceNode sent) {
             String singles = sent.singles.stream()
                     .map(s -> new SugarAux(s).prettyPrint())
                     .collect(Collectors.joining("; "));
             return sent.subject + " <== begin " + singles + " end";
         }
 
-        else if (node instanceof SingleNode) {
-            SingleNode single = (SingleNode) node;
-            String verbs = new SugarAux(single.verbs).prettyPrint();
-            String objects = new SugarAux(single.objects).prettyPrint();
-            return single.polarity + " " + single.modality + " " + verbs + " " + objects;
+        if (node instanceof SingleNode single) {
+            return single.polarity + " " + single.modality + " " +
+                    new SugarAux(single.verbs).prettyPrint() + " " +
+                    new SugarAux(single.objects).prettyPrint();
         }
 
-        else if (node instanceof WordsNode) {
-            WordsNode w = (WordsNode) node;
-            return String.join(" ", w.words);
+        if (node instanceof WordsNode w) {
+            return w.toString();
         }
 
-        return "";  // fallback
+        return "";
     }
 
-    //--- Utility to indent multi-line blocks for readability
     private String indent(String text) {
         return text.lines()
                 .map(line -> "    " + line)
                 .collect(Collectors.joining("\n"));
     }
 
-    /**
-     * Placeholder for future semantic or transformation logic.
-     * e.g. type-check, normalization, or policy evaluation.
-     */
     public void analyze() {
         if (node instanceof PolicyNode policy) {
             System.out.println("Analyzing policy: " + policy.name);
             new SugarAux(policy.sentences).analyze();
-        }
-        else if (node instanceof SentencesNode sents) {
+        } else if (node instanceof SentencesNode sents) {
             sents.sentences.forEach(s -> new SugarAux(s).analyze());
-        }
-        else if (node instanceof SentenceNode sent) {
+        } else if (node instanceof SentenceNode sent) {
             System.out.println("Subject: " + sent.subject);
             sent.singles.forEach(s -> new SugarAux(s).analyze());
-        }
-        else if (node instanceof SingleNode single) {
+        } else if (node instanceof SingleNode single) {
             System.out.println("  Single: " + single.polarity + " " + single.modality);
         }
     }

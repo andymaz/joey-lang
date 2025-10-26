@@ -1,12 +1,11 @@
 policy adams_family:
     begin
         danny <== begin
-            +ve obligated open sql_files
-            +ve obligated close sql_files
+            +ve obligated {open, close, delete} investment
         end
 
         alex <== begin
-            -ve authorised open sql_files
+            -ve authorised open hamlet
         end
 
         eve <== begin
@@ -18,11 +17,12 @@ policy adams_family:
         end
 
         abel <== begin
-            +ve authorised eat apple
-            +ve authorised eat berries
+            +ve authorised {eat, pick} {apple, berries}
         end
 
         cain <== begin
-            -ve obligated grow wheat
+            -ve obligated {grow, harvest} wheat
+            +ve authorised {eat, share} {melon, mango}
         end
+
     end

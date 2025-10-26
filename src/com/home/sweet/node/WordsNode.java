@@ -1,6 +1,7 @@
 package com.home.sweet.node;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WordsNode extends Node {
     public List<String> words;
@@ -12,9 +13,10 @@ public class WordsNode extends Node {
     @Override
     public String toString() {
         if (words.size() == 1) {
-            return words.get(0);
+            return words.get(0); // single word, no braces
         } else {
-            return "{" + String.join(", ", words) + "}";
+            // multiple words, join with commas and wrap with braces
+            return "{" + words.stream().collect(Collectors.joining(", ")) + "}";
         }
     }
 }
